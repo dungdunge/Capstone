@@ -4,8 +4,8 @@
     flex-direction: column;
     width: 100%; /* 전체 너비 */
     height: 100vh; /* 전체 높이 */
-    max-width: 100%; /* 최대 너비 (모바일 기준) */
-    max-height: 100vh; /* 최대 높이 (iPhone 8 기준) */
+    max-width: 432px; /* 최대 너비 (모바일 기준) */
+    max-height: 932px; /* 최대 높이 (iPhone 8 기준) */
     margin: 0 auto; /* 중앙 정렬 */
     border-radius: 20px; /* 둥근 모서리 */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 그림자 효과 */

@@ -45,7 +45,6 @@ const ChatRoomList = () => {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const [selectedRoomId, setSelectedRoomId] = useState('');
-    const [selectedRoomName, setSelectedRoomName] = useState('');
 
     const fetchChatList = useCallback(() => {
         axios.get(chatlistgetUrl, {
@@ -102,9 +101,8 @@ const ChatRoomList = () => {
         }
     };
 
-    const handleDeleteRoom = (roomId, roomName) => {
+    const handleDeleteRoom = (roomId) => {
         setSelectedRoomId(roomId);
-        setSelectedRoomName(roomName);
         setDeleteModalVisible(true);
     };
 

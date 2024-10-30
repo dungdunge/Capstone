@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import AppContext from './AppContext';
@@ -11,24 +11,22 @@ const ChatRoom = () => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectedFriend, setSelectedFriend] = useState(null);
+    // const [selectedFriend, setSelectedFriend] = useState(null);
     const { roomId, roomName } = useParams();
     const socketUrl = `wss://equal-duck-suitable.ngrok-free.app/ws`;
-    const apiUrl = `https://equal-duck-suitable.ngrok-free.app/main/chat/${roomId}`; // 환경 변수로 변경 가능
+    const apiUrl = `https://equal-duck-suitable.ngrok-free.app/main/chat/${roomId}`;
     const { response_username } = useContext(AppContext);
     const navigate = useNavigate();
-    const [isConnected, setIsConnected] = useState(false);
-
-    console.log('ChatRoom에서 roomId:', roomId);
+    const messagesEndRef = useRef(null); // 메시지 끝 위치를 참조할 ref
 
     const handleGoBack = () => {
         navigate(-1);
     };
 
-    const connect = () => {
+    const connect = useCallback(() => {
         if (!roomId) {
             console.error("Room ID가 정의되지 않았습니다.");
-            return; // roomId가 없으면 연결하지 않음
+            return;
         }
 
         const socket = new WebSocket(socketUrl);
@@ -39,31 +37,29 @@ const ChatRoom = () => {
         };
 
         stompClient.current.connect(headers, () => {
-            setIsConnected(true);
-
-
             stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
                 const newMessage = JSON.parse(message.body);
-                setMessages((prevMessages) => {
-                    const updatedMessages = [...prevMessages, newMessage];
-                    return updatedMessages;
-                });
+                setMessages((prevMessages) => [...prevMessages, newMessage]);
             });
         }, (error) => {
             console.error("Connection error:", error);
-            setIsConnected(false);
         });
-    };
+    }, [roomId, response_username, socketUrl]);
 
-    const disconnect = () => {
+    const disconnect = useCallback(() => {
         if (stompClient.current) {
             stompClient.current.disconnect();
             stompClient.current = null; // 연결 해제 후 null로 설정
         }
-    };
+    }, []);
 
     const sendMessage = () => {
-        if (stompClient.current && inputValue) {
+        if (!inputValue.trim()) {
+            console.error("메시지를 입력하세요.");
+            return; // inputValue가 비어 있으면 함수 종료
+        }
+
+        if (stompClient.current) {
             const body = {
                 roomId: roomId,
                 name: response_username,
@@ -73,23 +69,13 @@ const ChatRoom = () => {
             };
 
             stompClient.current.send(`/pub/chat/${roomId}`, {}, JSON.stringify(body));
-            setInputValue('');
+            setInputValue(''); // 전송 후 입력 필드 비우기
         } else {
-            console.error("메시지를 입력하세요.");
+            console.error("연결이 되어 있지 않습니다.");
         }
     };
 
-    const openModal = (friendName) => {
-        setSelectedFriend(friendName);
-        setModalVisible(true);
-    };
-
-    const handleCloseModal = () => {
-        setModalVisible(false);
-        setSelectedFriend(null);
-    };
-
-    const fetchMessages = () => {
+    const fetchMessages = useCallback(() => {
         axios.get(apiUrl, {
             headers: {
                 'Content-Type': 'application/json',
@@ -97,31 +83,31 @@ const ChatRoom = () => {
             }
         })
         .then(response => {
-            // 응답이 배열인지 확인
             if (Array.isArray(response.data)) {
                 setMessages(response.data);
             } else {
                 console.error("응답 데이터가 배열이 아닙니다:", response.data);
-                setMessages([]); // 기본값으로 빈 배열 설정
+                setMessages([]);
             }
         })
         .catch(error => console.error("메시지 가져오기 오류:", error));
-    };
-    
-    
+    }, [apiUrl]);
 
+    // 메시지가 변경될 때마다 자동으로 스크롤
     useEffect(() => {
         fetchMessages();
-        if (!isConnected) {
-            connect();
-        }
-        // 의존성 배열에서 connect와 fetchMessages를 제거
+        connect();
         return () => {
             disconnect();
         };
-    }, [roomId, isConnected]);
-    
-    
+    }, [roomId, connect, disconnect, fetchMessages]);
+
+    useEffect(() => {
+        // 메시지가 변경될 때 가장 아래로 스크롤
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);
 
     return (
         <div className="chat-room-container">
@@ -139,6 +125,8 @@ const ChatRoom = () => {
                         <small>{new Date(item.timestamp).toLocaleTimeString()}</small>
                     </div>
                 ))}
+                {/* 스크롤을 위한 빈 div */}
+                <div ref={messagesEndRef} />
             </div>
 
             <div className="inputContainer">
@@ -153,10 +141,10 @@ const ChatRoom = () => {
 
             {modalVisible && (
                 <div className="modal">
-                    <h3>{selectedFriend}</h3>
+                    {/* <h3>{selectedFriend}</h3> */}
                     <button onClick={() => {/* 1:1 채팅 로직 */}}>1:1 채팅</button>
                     <button onClick={() => {/* 친구 추가 로직 */}}>친구 추가</button>
-                    <button onClick={handleCloseModal}>닫기</button>
+                    <button onClick={() => setModalVisible(false)}>닫기</button>
                 </div>
             )}
         </div>

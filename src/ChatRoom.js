@@ -99,7 +99,8 @@ const ChatRoom = () => {
         return () => {
             disconnect();
         };
-    }, [roomId]);
+    }, [roomId, isConnected, connect]); // 의존성 배열에 추가
+    
 
     return (
         <div className="chat-room-container">

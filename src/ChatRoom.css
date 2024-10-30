@@ -1,67 +1,95 @@
+/* 전체 화면을 모바일 크기로 설정 */
 .chat-room-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    padding: 20px;
+    width: 100%; /* 전체 너비 */
+    height: 100vh; /* 전체 높이 */
+    max-width: 100%; /* 최대 너비 (모바일 기준) */
+    max-height: 100vh; /* 최대 높이 (iPhone 8 기준) */
+    margin: 0 auto; /* 중앙 정렬 */
+    border-radius: 20px; /* 둥근 모서리 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     background-color: #F4F3F8;
+    overflow: hidden; /* 자식 요소가 넘칠 경우 숨김 */
 }
 
+/* 내비게이션 바 스타일 */
 .navBar {
     display: flex;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #E0E0E0;
+    background-color: white; /* 내비게이션 바 배경색 */
 }
 
 .navBar h2 {
     flex: 1;
     text-align: center;
+    font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
+/* 메시지 영역 스타일 */
 .messages {
     flex: 1;
-    overflow-y: auto;
-    padding: 10px;
+    overflow-y: auto; /* 세로 스크롤 가능 */
+    margin: 10px 0;
+    padding: 10px; /* 패딩 추가 */
 }
 
+/* 내 메시지 스타일 */
 .myMessage {
-    align-self: flex-end;
+    align-self: flex-end; /* 오른쪽 정렬 */
     background-color: #007AFF;
     color: white;
-    padding: 10px;
     border-radius: 8px;
+    padding: 10px;
     margin: 5px 0;
+    max-width: 30%; /* 최대 너비 제한 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
+/* 다른 메시지 스타일 */
 .otherMessage {
-    align-self: flex-start;
+    align-self: flex-start; /* 왼쪽 정렬 */
     background-color: #f9f9f9;
-    padding: 10px;
+    color: #000; /* 글자 색상 */
     border-radius: 8px;
+    padding: 10px;
     margin: 5px 0;
+    max-width: 30%; /* 최대 너비 제한 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
+/* 입력 컨테이너 스타일 */
 .inputContainer {
     display: flex;
-    margin-top: 10px;
+    align-items: center;
+    padding: 10px; /* 패딩 추가 */
+    background-color: white; /* 배경색 설정 */
+    border-top: 1px solid #E0E0E0; /* 상단 경계선 */
 }
 
+/* 입력 필드 스타일 */
 .inputContainer input {
     flex: 1;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    padding: 10px;
+    margin-right: 5px;
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
+/* 전송 버튼 스타일 */
 .inputContainer button {
-    margin-left: 10px;
-    padding: 10px;
     background-color: #007AFF;
     color: white;
     border: none;
     border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
+/* 모달 스타일 */
 .modal {
     position: fixed;
     top: 0;
@@ -74,10 +102,13 @@
     align-items: center;
 }
 
+/* 모달 제목 스타일 */
 .modal h3 {
-    margin-bottom: 20px;
+    color: white;
+    font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
+/* 모달 버튼 스타일 */
 .modal button {
     margin: 5px;
     padding: 10px;
@@ -85,4 +116,5 @@
     color: white;
     border: none;
     border-radius: 8px;
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }

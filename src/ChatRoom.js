@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from 'axios';
 import AppContext from './AppContext';
 import './ChatRoom.css'; // CSS 파일을 따로 만들어서 스타일링
 import { Stomp } from "@stomp/stompjs";
@@ -13,9 +14,9 @@ const ChatRoom = () => {
     const [selectedFriend, setSelectedFriend] = useState(null);
     const { roomId, roomName } = useParams();
     const socketUrl = `wss://equal-duck-suitable.ngrok-free.app/ws`;
+    const apiUrl = `https://equal-duck-suitable.ngrok-free.app/main/chat/${roomId}`; // 환경 변수로 변경 가능
     const { response_username } = useContext(AppContext);
     const navigate = useNavigate();
-    const [activeUsers, setActiveUsers] = useState(0);
     const [isConnected, setIsConnected] = useState(false);
 
     console.log('ChatRoom에서 roomId:', roomId);
@@ -40,15 +41,11 @@ const ChatRoom = () => {
         stompClient.current.connect(headers, () => {
             setIsConnected(true);
 
-            setActiveUsers(1);
 
             stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
                 const newMessage = JSON.parse(message.body);
                 setMessages((prevMessages) => {
                     const updatedMessages = [...prevMessages, newMessage];
-                    const enterCount = updatedMessages.filter(msg => msg.type === "ENTER").length;
-                    const leaveCount = updatedMessages.filter(msg => msg.type === "QUIT").length;
-                    setActiveUsers(enterCount - leaveCount);
                     return updatedMessages;
                 });
             });
@@ -92,14 +89,38 @@ const ChatRoom = () => {
         setSelectedFriend(null);
     };
 
+    const fetchMessages = () => {
+        axios.get(apiUrl, {
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': '69420',
+            }
+        })
+        .then(response => {
+            // 응답이 배열인지 확인
+            if (Array.isArray(response.data)) {
+                setMessages(response.data);
+            } else {
+                console.error("응답 데이터가 배열이 아닙니다:", response.data);
+                setMessages([]); // 기본값으로 빈 배열 설정
+            }
+        })
+        .catch(error => console.error("메시지 가져오기 오류:", error));
+    };
+    
+    
+
     useEffect(() => {
+        fetchMessages();
         if (!isConnected) {
             connect();
         }
+        // 의존성 배열에서 connect와 fetchMessages를 제거
         return () => {
             disconnect();
         };
-    }, [roomId, isConnected, connect]); // 의존성 배열에 추가
+    }, [roomId, isConnected]);
+    
     
 
     return (
@@ -109,7 +130,6 @@ const ChatRoom = () => {
                     <IoArrowBack size={24} />
                 </button>
                 <h2>{roomName}</h2>
-                {/* <span>{activeUsers} active users</span> */}
             </div>
 
             <div className="messages">

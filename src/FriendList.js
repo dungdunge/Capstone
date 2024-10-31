@@ -74,6 +74,7 @@ const FriendsList = () => {
     const renderFriendItem = (friend) => (
         <div className="friend-item" key={friend.id} onClick={() => handleFriendPress(friend)}>
             <span className="friend-emoji">{getRandomEmoji()}</span>
+            <br /> {/* 줄바꿈 추가 */}
             <span className="friend-text">{friend.nickname}</span>
         </div>
     );

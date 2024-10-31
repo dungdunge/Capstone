@@ -1,0 +1,55 @@
+/* LogIn.css */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f1efef;
+    height: 100vh; /* 전체 화면 높이 */
+    margin-top: -20px;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+.form-input {
+    width: 60%;  /* 동일한 너비 */
+    height: 50px;
+    border: 1px solid gray;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-button {
+    width: 60%;  /* 동일한 너비 */
+    background-color: black; /* 로그인 버튼 기본 배경색 */
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    border: none; /* 버튼 경계 제거 */
+}
+
+.form-button:hover {
+    background-color: #e4e3e9; /* 로그인 버튼 호버 시 색상 변경 */
+}
+
+
+.footer {
+    width: 70%;
+    margin-top: 20px;
+    display: flex; /* Flexbox 사용하여 버튼을 가로로 정렬 */
+    justify-content: space-between; /* 버튼 간격 조정 */
+}

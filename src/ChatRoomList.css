@@ -14,8 +14,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #6200ea;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(5, 132, 190);
     padding: 10px 20px;
 }
 
@@ -30,10 +30,10 @@
 
 /* 버튼 스타일 */
 button {
-    background-color: #6200ea;
+    background-color: rgb(5, 132, 190);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -41,7 +41,7 @@ button {
 }
 
 button:hover {
-    background-color: #3700b3;
+    background-color: #e4e3e9;
 }
 
 /* 입력 필드 스타일 */
@@ -64,7 +64,7 @@ input[type="text"] {
 .category-container button {
     margin-right: 10px;
     margin-bottom: 10px;
-    font-size: 3.5vw; /* 화면 너비에 따라 글자 크기 조정 */
+    font-size: 2.8vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
 /* 채팅 리스트 스타일 */
@@ -81,7 +81,7 @@ input[type="text"] {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s;
-    font-size: 3.5vw; /* 화면 너비에 따라 글자 크기 조정 */
+    font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
 .chat-item:hover {
@@ -130,7 +130,49 @@ input[type="text"] {
     max-width: 300px; /* 최대 너비 설정 */
     text-align: center;
     font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 중앙 정렬 추가 */
 }
+
+/* 드롭다운 버튼 스타일 */
+.modal button {
+    width: calc(35%); /* 너비를 80%로 설정하여 중앙 정렬 */
+    padding: 10px; /* 패딩 설정 */
+    border: none;
+    border-radius: 5px;
+    background-color: #e0d0f7; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
+    cursor: pointer;
+    margin: 5px 0; /* 버튼 간 간격 추가 */
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
+}
+
+.modal button:hover {
+    background-color: #e4e3e9; /* 버튼 호버 시 색상 변경 */
+}
+
+/* 입력 필드 스타일 */
+.modal input[type="text"] {
+    width: calc(50%); /* 버튼과 같은 너비 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 3.5vw; /* 화면 너비에 따라 글자 크기 조정 */
+    margin: 10px 0; /* 입력 필드와 버튼 간 간격 추가 */
+}
+
+/* 버튼 컨테이너 스타일 */
+.modal-button-container {
+    width: calc(50%);
+    display: flex;
+    justify-content: space-between; /* 버튼 간격 조정 */
+    /* margin-top: 10px; 추가 간격 */
+}
+
+
 
 /* 드롭다운 리스트 스타일 */
 .dropdown-list {
@@ -139,21 +181,68 @@ input[type="text"] {
     border-radius: 5px;
     position: absolute;
     z-index: 10;
-    width: calc(100% - 20px); /* 화면 너비에 맞춰 조정 */
+    width: calc(50%); /* 버튼과 동일한 너비로 설정 */
     max-height: 200px;
     overflow-y: auto;
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 중앙 정렬 */
 }
 
 /* 드롭다운 버튼 스타일 */
 .dropdown-list button {
-    width: 100%;
+    width: 100%; /* 드롭다운 버튼 너비를 100%로 설정 */
     text-align: left;
     padding: 10px;
     border: none;
     background: none;
-    font-size: 3.5vw; /* 화면 너비에 따라 글자 크기 조정 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
 }
 
 .dropdown-list button:hover {
-    background-color: #f0f0f0;
+    background-color: #e4e3e9;
+}
+/* 하단 네비게이션 바 스타일 */
+.bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    background-color: #F4F3F8;
+    z-index: 100; /* 다른 요소 위에 표시 */
+}
+
+/* 네비게이션 아이템 스타일 */
+.bottomNav .navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* 네비게이션 아이콘 스타일 */
+.bottomNav .navItem span {
+    margin-top: 5px; /* 아이콘과 텍스트 간 간격 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
+}
+
+/* 버튼 스타일 (하단 네비게이션) */
+.bottomNav button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.bottomNav button:hover {
+    background-color: #e4e3e9; /* 버튼 호버 시 색상 변경 */
 }

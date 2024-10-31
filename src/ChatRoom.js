@@ -15,7 +15,7 @@ const ChatRoom = () => {
     const { roomId, roomName } = useParams();
     const socketUrl = `wss://equal-duck-suitable.ngrok-free.app/ws`;
     const apiUrl = `https://equal-duck-suitable.ngrok-free.app/main/chat/${roomId}`;
-    const { response_username } = useContext(AppContext);
+    const { responseUsername } = useContext(AppContext);
     const navigate = useNavigate();
     const messagesEndRef = useRef(null); // 메시지 끝 위치를 참조할 ref
 
@@ -32,7 +32,7 @@ const ChatRoom = () => {
         const socket = new WebSocket(socketUrl);
         stompClient.current = Stomp.over(() => socket);
         const headers = {
-            nickname: response_username,
+            nickname: responseUsername,
             roomId: roomId.toString(),
         };
 
@@ -44,7 +44,7 @@ const ChatRoom = () => {
         }, (error) => {
             console.error("Connection error:", error);
         });
-    }, [roomId, response_username, socketUrl]);
+    }, [roomId, responseUsername, socketUrl]);
 
     const disconnect = useCallback(() => {
         if (stompClient.current) {
@@ -62,7 +62,7 @@ const ChatRoom = () => {
         if (stompClient.current) {
             const body = {
                 roomId: roomId,
-                name: response_username,
+                name: responseUsername,
                 message: inputValue,
                 timestamp: new Date().toISOString(),
                 type: "CHAT",
@@ -82,15 +82,15 @@ const ChatRoom = () => {
                 'ngrok-skip-browser-warning': '69420',
             }
         })
-        .then(response => {
-            if (Array.isArray(response.data)) {
-                setMessages(response.data);
-            } else {
-                console.error("응답 데이터가 배열이 아닙니다:", response.data);
-                setMessages([]);
-            }
-        })
-        .catch(error => console.error("메시지 가져오기 오류:", error));
+            .then(response => {
+                if (Array.isArray(response.data)) {
+                    setMessages(response.data);
+                } else {
+                    console.error("응답 데이터가 배열이 아닙니다:", response.data);
+                    setMessages([]);
+                }
+            })
+            .catch(error => console.error("메시지 가져오기 오류:", error));
     }, [apiUrl]);
 
     // 메시지가 변경될 때마다 자동으로 스크롤
@@ -120,14 +120,18 @@ const ChatRoom = () => {
 
             <div className="messages">
                 {messages.map((item, index) => (
-                    <div key={index} className={item.name === response_username ? "myMessage" : "otherMessage"}>
-                        <p>{item.name}: {item.message}</p>
-                        <small>{new Date(item.timestamp).toLocaleTimeString()}</small>
+                    <div key={index} className={item.name === responseUsername ? "myMessageContainer" : "otherMessageContainer"}>
+                        <div className={item.name === responseUsername ? "myMessage" : "otherMessage"}>
+                            <small className="messageAuthor">{item.name}</small> {/* 닉네임 추가 */}
+                            <p>{item.message}</p>
+                            <small>{new Date(item.timestamp).toLocaleTimeString()}</small>
+                        </div>
                     </div>
                 ))}
-                {/* 스크롤을 위한 빈 div */}
-                <div ref={messagesEndRef} />
+                <div ref={messagesEndRef} /> {/* 스크롤을 위한 빈 div */}
             </div>
+
+
 
             <div className="inputContainer">
                 <input
@@ -142,8 +146,8 @@ const ChatRoom = () => {
             {modalVisible && (
                 <div className="modal">
                     {/* <h3>{selectedFriend}</h3> */}
-                    <button onClick={() => {/* 1:1 채팅 로직 */}}>1:1 채팅</button>
-                    <button onClick={() => {/* 친구 추가 로직 */}}>친구 추가</button>
+                    <button onClick={() => {/* 1:1 채팅 로직 */ }}>1:1 채팅</button>
+                    <button onClick={() => {/* 친구 추가 로직 */ }}>친구 추가</button>
                     <button onClick={() => setModalVisible(false)}>닫기</button>
                 </div>
             )}

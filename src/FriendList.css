@@ -1,0 +1,100 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F4F3F8;
+    padding: 20px;
+}
+
+.nav-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #F4F3F8;
+    border-radius: 8px;
+}
+
+.nav-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.friend-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.friend-item {
+    flex: 1 1 20%; /* 4열로 나누기 */
+    margin: 5px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    cursor: pointer;
+}
+
+.friend-emoji {
+    font-size: 30px;
+}
+
+.friend-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.modal-view {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* 모달을 최상위로 표시 */
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.chat-button, .cancel-button {
+    background-color: #007AFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #F5E4E4;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    background-color: #F4F3F8;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}

@@ -28,37 +28,54 @@
     font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
-/* 메시지 영역 스타일 */
-.messages {
-    flex: 1;
-    overflow-y: auto; /* 세로 스크롤 가능 */
-    margin: 10px 0;
-    padding: 10px; /* 패딩 추가 */
+/* 내 메시지 컨테이너 스타일 */
+.myMessageContainer {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin: 5px 0; /* 메시지 간격 */
+}
+
+/* 다른 메시지 컨테이너 스타일 */
+.otherMessageContainer {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    margin: 5px 0; /* 메시지 간격 */
 }
 
 /* 내 메시지 스타일 */
 .myMessage {
-    align-self: flex-end; /* 오른쪽 정렬 */
     background-color: #007AFF;
     color: white;
     border-radius: 8px;
     padding: 10px;
-    margin: 5px 0;
-    max-width: 30%; /* 최대 너비 제한 */
+    max-width: 70%; /* 최대 너비 제한 */
     font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
 
 /* 다른 메시지 스타일 */
 .otherMessage {
-    align-self: flex-start; /* 왼쪽 정렬 */
     background-color: #f9f9f9;
     color: #000; /* 글자 색상 */
     border-radius: 8px;
     padding: 10px;
-    margin: 5px 0;
-    max-width: 30%; /* 최대 너비 제한 */
+    max-width: 70%; /* 최대 너비 제한 */
     font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
 }
+
+/* 메시지 작성자 스타일 */
+.messageAuthor {
+    font-weight: bold; /* 닉네임 굵게 표시 */
+    margin-bottom: 5px; /* 닉네임과 내용 간 간격 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
+}
+/* 메시지 영역 스타일 */
+.messages {
+    flex: 1; /* 남은 공간을 차지 */
+    overflow-y: auto; /* 세로 스크롤 가능 */
+    margin: 10px 0;
+    padding: 10px; /* 패딩 추가 */
+}
+
 
 /* 입력 컨테이너 스타일 */
 .inputContainer {

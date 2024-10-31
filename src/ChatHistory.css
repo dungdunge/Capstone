@@ -1,0 +1,76 @@
+.chat-history {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #F5F5F5;
+    height: 95vh; /* 전체 높이 */
+    overflow: auto;
+}
+
+.nav-bar {
+    background-color: #F4F3F8;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.nav-bar h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.chat-list {
+    margin-bottom: 60px; /* 하단 네비게이션 바 공간 확보 */
+}
+
+.chat-item {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.chat-text {
+    font-size: 18px;
+}
+
+/* 하단 네비게이션 바 스타일 */
+.bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    background-color: #F4F3F8;
+    z-index: 100; /* 다른 요소 위에 표시 */
+}
+
+/* 네비게이션 아이템 스타일 */
+.bottomNav .navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* 네비게이션 아이콘 스타일 */
+.bottomNav .navItem span {
+    margin-top: 5px; /* 아이콘과 텍스트 간 간격 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
+}
+
+/* 버튼 스타일 (하단 네비게이션) */
+.bottomNav button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.bottomNav button:hover {
+    background-color: #e4e3e9; /* 버튼 호버 시 색상 변경 */
+}

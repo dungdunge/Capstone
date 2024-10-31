@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AppContext from './AppContext';
 import './ChatRoomList.css'; // CSS 파일을 따로 만들어서 스타일링
 import { useSwipeable } from 'react-swipeable'; // 스와이프 목록을 위한 패키지
+import { IoTimeOutline, IoChatbubblesOutline, IoHome, IoPeopleOutline, IoPersonOutline } from 'react-icons/io5';
 
 const categories = [
     { emoji: '🏅', label: '스포츠' },
@@ -41,11 +42,11 @@ const ChatRoomList = () => {
     const [roomName, setRoomName] = useState('');
     const { chatlistTrue, setChatlistTrue } = useContext(AppContext);
     const navigate = useNavigate();
-    const { response_username } = useContext(AppContext);
+    const { responseUsername } = useContext(AppContext);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const [selectedRoomId, setSelectedRoomId] = useState('');
-
+    
     const fetchChatList = useCallback(() => {
         axios.get(chatlistgetUrl, {
             headers: {
@@ -65,6 +66,7 @@ const ChatRoomList = () => {
         axios.get(`${baseCategoryUrl}/${category}`, {
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': '69420',
             }
         })
             .then(response => {
@@ -79,11 +81,12 @@ const ChatRoomList = () => {
     };
 
     const handleCreateRoom = () => {
+        console.log('닉네임:', responseUsername);
         if (selectedCategory && roomName) {
             axios.post(createChatRoomUrl, {
                 category: selectedCategory.label,
                 name: roomName,
-                creatorNickname: response_username,
+                creatorNickname: responseUsername,
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,7 +111,7 @@ const ChatRoomList = () => {
 
     const confirmDeleteRoom = () => {
         axios.delete(deleteChatRoomUrl, {
-            data: { roomId: selectedRoomId, nickname: response_username },
+            data: { roomId: selectedRoomId, nickname: responseUsername },
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -127,7 +130,23 @@ const ChatRoomList = () => {
     const handleChatSelect = (roomId, roomName) => {
         navigate(`/chatroom/${roomId}/${roomName}`, { state: { roomId, roomName } });
     };
+    const handleMyInfo = () => {
+        navigate('/myinfo'); // 내 정보 페이지로 이동
+    };
 
+    const handleFriendList = () => {
+        navigate('/friendlist'); // 친구 목록 페이지로 이동
+    };
+    const handleChatRoomList = () => {
+        navigate('/chatroomlist'); // 메인 페이지로 이동
+    };
+
+    const handleChatHistory = () => {
+        navigate('/chathistory'); // 채팅 기록 페이지로 이동
+    };
+    const handleMyChat = () => {
+        navigate('/mychat'); // 내 채팅 페이지로 이동
+    };
     const filteredChatlist = Array.isArray(chatlistTrue) ? chatlistTrue
         .filter(chat => chat.name.includes(searchTerm))
         .reverse() : [];
@@ -136,7 +155,7 @@ const ChatRoomList = () => {
         <div className="chat-room-list">
             <header className="nav-bar">
                 <h1>Chat</h1>
-                <p>{response_username}</p>
+                <p>{responseUsername}</p>
                 <button onClick={() => setModalVisible(true)}>방 생성</button>
             </header>
 
@@ -166,32 +185,67 @@ const ChatRoomList = () => {
                     />
                 ))}
             </div>
-
+            {/* 하단 네비게이션 바 추가 */}
+            <div className="bottomNav">
+                <div className="navItem" onClick={handleChatHistory}>
+                    <IoTimeOutline size={30} color="#7BAFD4" />
+                    <span>기록</span>
+                </div>
+                <div className="navItem" onClick={handleMyChat}>
+                    <IoChatbubblesOutline size={30} color="#7BAFD4" />
+                    <span>내 채팅</span>
+                </div>
+                <div className="navItem" onClick={handleChatRoomList}>
+                    <IoHome size={30} color="#7BAFD4" />
+                    <span>메인</span>
+                </div>
+                <div className="navItem" onClick={handleFriendList}>
+                    <IoPeopleOutline size={30} color="#7BAFD4" />
+                    <span>친구</span>
+                </div>
+                <div className="navItem" onClick={handleMyInfo}>
+                    <IoPersonOutline size={30} color="#7BAFD4" />
+                    <span>내 정보</span>
+                </div>
+            </div>
             {modalVisible && (
                 <div className="modal">
-                    <h2>채팅방 생성</h2>
-                    <button onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
-                        {selectedCategory.emoji} {selectedCategory.label}
-                    </button>
-                    {isDropdownVisible && (
-                        <div className="dropdown-list">
-                            {categories.map((category) => (
-                                <button key={category.label} onClick={() => handleCategorySelect(category)}>
-                                    {category.emoji} {category.label}
-                                </button>
-                            ))}
+                    <div>
+                        <h2>채팅방 생성</h2>
+
+                        {/* 카테고리 선택 버튼 */}
+                        <button onClick={() => setIsDropdownVisible(!isDropdownVisible)}>
+                            {selectedCategory.emoji} {selectedCategory.label}
+                        </button>
+
+                        {isDropdownVisible && (
+                            <div className="dropdown-list">
+                                {categories.map((category) => (
+                                    <button key={category.label} onClick={() => handleCategorySelect(category)}>
+                                        {category.emoji} {category.label}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* 방 이름 입력 필드 */}
+                        <input
+                            type="text"
+                            placeholder="채팅방 이름"
+                            value={roomName}
+                            onChange={e => setRoomName(e.target.value)}
+                        />
+
+                        {/* 생성 및 취소 버튼 */}
+                        <div className="modal-button-container">
+                            <button onClick={handleCreateRoom}>생성</button>
+                            <button onClick={() => setModalVisible(false)}>취소</button>
                         </div>
-                    )}
-                    <input
-                        type="text"
-                        placeholder="채팅방 이름"
-                        value={roomName}
-                        onChange={e => setRoomName(e.target.value)}
-                    />
-                    <button onClick={handleCreateRoom}>생성</button>
-                    <button onClick={() => setModalVisible(false)}>취소</button>
+                    </div>
                 </div>
             )}
+
+
 
             {deleteModalVisible && (
                 <div className="modal">

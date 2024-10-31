@@ -30,7 +30,7 @@
 
 /* 버튼 스타일 */
 button {
-    background-color: rgb(5, 132, 190);
+    background-color: rgb(44, 152, 202);
     color: white;
     border: none;
     border-radius: 15px;
@@ -64,7 +64,8 @@ input[type="text"] {
 .category-container button {
     margin-right: 10px;
     margin-bottom: 10px;
-    font-size: 2.8vw; /* 화면 너비에 따라 글자 크기 조정 */
+    font-size: 2.9vw; /* 화면 너비에 따라 글자 크기 조정 */
+    font-size: 11.5px;
 }
 
 /* 채팅 리스트 스타일 */

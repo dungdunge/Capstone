@@ -43,10 +43,12 @@ const MyInfo = () => {
             senderNickname: responseUsername,
             receiverNickname: friendNickname,
         };
-
+        const token = localStorage.getItem('authToken'); // 저장된 토큰을 가져옴
         axios.post('https://equal-duck-suitable.ngrok-free.app/bro/request', data, {
             headers: {
+                'Content-Type': 'application/json',
                 'ngrok-skip-browser-warning': '69420',
+                'Authorization': `Bearer ${token}`, // 토큰을 헤더에 추가
             },
         })
             .then(response => {
@@ -61,9 +63,12 @@ const MyInfo = () => {
     };
 
     const fetchFriendRequests = () => {
+        const token = localStorage.getItem('authToken'); // 저장된 토큰을 가져옴
         axios.get('https://equal-duck-suitable.ngrok-free.app/bro/request-list', {
             headers: {
+                'Content-Type': 'application/json',
                 'ngrok-skip-browser-warning': '69420',
+                'Authorization': `Bearer ${token}`, // 토큰을 헤더에 추가
             },
         })
             .then(response => {

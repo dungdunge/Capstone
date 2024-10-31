@@ -172,7 +172,7 @@ const ChatRoomList = () => {
                         {category.emoji} {category.label}
                     </button>
                 ))}
-                <button onClick={fetchChatList}>새로 고침</button>
+                <button onClick={fetchChatList}>새로고침</button>
             </div>
 
             <div className="chat-list">

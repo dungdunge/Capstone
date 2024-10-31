@@ -61,7 +61,7 @@ const FriendsList = () => {
             },
         })
             .then(response => {
-                navigate(`/chat-room/${response.data.id}`); // 채팅방으로 이동
+                navigate(`/chatroom/${response.data.id}/${response.data.name}`); // 채팅방으로 이동
                 handleCloseModal();
             })
             .catch(error => {

@@ -46,7 +46,7 @@ const ChatRoomList = () => {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const [selectedRoomId, setSelectedRoomId] = useState('');
-    
+
     const fetchChatList = useCallback(() => {
         axios.get(chatlistgetUrl, {
             headers: {
@@ -249,11 +249,16 @@ const ChatRoomList = () => {
 
             {deleteModalVisible && (
                 <div className="modal">
-                    <h2>채팅방을 삭제하시겠습니까?</h2>
-                    <button onClick={confirmDeleteRoom}>예</button>
-                    <button onClick={() => setDeleteModalVisible(false)}>아니오</button>
+                    <div>
+                        <h2 style={{ fontSize: '2vh' }}>채팅방을 삭제하시겠습니까?</h2>
+                        <div className="modal-button-container">
+                            <button style={{ fontSize: '1.3vh' }} onClick={confirmDeleteRoom}>예</button>
+                            <button style={{ fontSize: '1.3vh' }} onClick={() => setDeleteModalVisible(false)}>아니오</button>
+                        </div>
+                    </div>
                 </div>
             )}
+
         </div>
     );
 };

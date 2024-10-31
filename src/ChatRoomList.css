@@ -135,6 +135,15 @@ input[type="text"] {
     align-items: center; /* 중앙 정렬 추가 */
 }
 
+/* 버튼 컨테이너 스타일 */
+.modal-button-container {
+    width: 100%; /* 전체 너비 사용 */
+    display: flex;
+    justify-content: space-around; /* 버튼 간격 조정 */
+    /* margin-top: 20px; 버튼과 텍스트 간의 여백 추가 */
+}
+
+
 /* 드롭다운 버튼 스타일 */
 .modal button {
     width: calc(35%); /* 너비를 80%로 설정하여 중앙 정렬 */
@@ -143,7 +152,7 @@ input[type="text"] {
     border-radius: 5px;
     background-color: #e0d0f7; /* 버튼 배경색 */
     color: white; /* 버튼 글자색 */
-    font-size: 4vw; /* 화면 너비에 따라 글자 크기 조정 */
+    font-size: 3vw; /* 화면 너비에 따라 글자 크기 조정 */
     cursor: pointer;
     margin: 5px 0; /* 버튼 간 간격 추가 */
     display: flex; /* Flexbox 사용 */
@@ -162,14 +171,6 @@ input[type="text"] {
     border-radius: 5px;
     font-size: 3.5vw; /* 화면 너비에 따라 글자 크기 조정 */
     margin: 10px 0; /* 입력 필드와 버튼 간 간격 추가 */
-}
-
-/* 버튼 컨테이너 스타일 */
-.modal-button-container {
-    width: calc(50%);
-    display: flex;
-    justify-content: space-between; /* 버튼 간격 조정 */
-    /* margin-top: 10px; 추가 간격 */
 }
 
 

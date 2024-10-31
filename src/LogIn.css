@@ -31,7 +31,7 @@
 }
 
 .form-button {
-    width: 60%;  /* 동일한 너비 */
+    width: 100%;  /* 동일한 너비 */
     background-color: black; /* 로그인 버튼 기본 배경색 */
     color: white;
     padding: 10px;
@@ -43,13 +43,13 @@
 }
 
 .form-button:hover {
-    background-color: #e4e3e9; /* 로그인 버튼 호버 시 색상 변경 */
+    background-color: #333; /* 로그인 버튼 호버 시 색상 변경 */
 }
 
 
 .footer {
-    width: 70%;
-    margin-top: 20px;
+    width: 100%;
+    margin-top: 10px;
     display: flex; /* Flexbox 사용하여 버튼을 가로로 정렬 */
-    justify-content: space-between; /* 버튼 간격 조정 */
+    justify-content: center; /* 버튼 간격 조정 */
 }

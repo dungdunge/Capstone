@@ -24,22 +24,14 @@ const MyInfo = () => {
     const randomAnimalEmoji = animalEmojis[Math.floor(Math.random() * animalEmojis.length)];
 
     const handleLogout = () => {
-        axios.post('https://equal-duck-suitable.ngrok-free.app/auth/logout', {}, {
-            headers: {
-                'ngrok-skip-browser-warning': '69420',
-            },
-            withCredentials: true, // 세션 쿠키 포함
-        })
-            .then(response => {
-                setResponseUsername(null); // AppContext에서 닉네임 초기화
-                alert("로그아웃 성공");
-                navigate('/'); // 로그인 페이지로 이동
-            })
-            .catch(error => {
-                console.error("로그아웃 오류:", error);
-                alert("로그아웃 실패");
-            });
+        // 로컬 스토리지에서 토큰 제거
+        localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
+        setResponseUsername(null); // AppContext에서 닉네임 초기화
+        alert("로그아웃 성공");
+        navigate('/'); // 로그인 페이지로 이동
     };
+    
+    
 
     const handleAddFriend = () => {
         if (!friendNickname) {

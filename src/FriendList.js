@@ -72,12 +72,13 @@ const FriendsList = () => {
         fetchFriendsList();
     }, [fetchFriendsList]);
     const renderFriendItem = (friend) => (
-        <div className="friend-item" onClick={() => handleFriendPress(friend)}>
+        <div className="friend-item" key={friend.id} onClick={() => handleFriendPress(friend)}>
             <span className="friend-emoji">{getRandomEmoji()}</span>
             <span className="friend-text">{friend.nickname}</span>
         </div>
     );
-
+    
+    
     const getRandomEmoji = () => {
         return animalEmojis[Math.floor(Math.random() * animalEmojis.length)];
     };

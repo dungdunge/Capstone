@@ -110,7 +110,7 @@ const MyChat = () => {
 
             {/* 내가 만든 채팅 섹션 */}
             <div className="section-container">
-                <h2 className="section-title">내가 만든 채팅</h2>
+                <h2 className="nav-bar">내가 만든 채팅</h2>
                 {createdChatRooms.length > 0 ? (
                     <div className="chat-list">
                         {createdChatRooms.map(item => (

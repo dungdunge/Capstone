@@ -21,7 +21,7 @@
 }
 
 .form-input {
-    width: 60%;  /* 동일한 너비 */
+    width: 60%;
     height: 50px;
     border: 1px solid gray;
     margin-bottom: 15px;
@@ -29,6 +29,7 @@
     border-radius: 10px;
     background-color: #f9f9f9;
 }
+
 
 .form-button {
     width: 100%;  /* 동일한 너비 */

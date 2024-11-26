@@ -101,7 +101,7 @@ const LogIn = () => {
             <form onSubmit={LogIn_submit}> {/* 폼 요소 추가 */}
                 <input
                     className="form-input"
-                    type="text"
+                    // type="text"
                     placeholder="아이디 입력"
                     onChange={e => setUserName(e.target.value)}
                     value={username}
